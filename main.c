@@ -13,7 +13,7 @@ int main() {
     int width, height, channels;
 
     // 1. Load the image
-    unsigned char *img = stbi_load("8x8.png", &width, &height, &channels, 1); 
+    unsigned char *img = stbi_load("OIP.png", &width, &height, &channels, 1); 
     if (img == NULL) {
         printf("Failed to load image\n"); 
         return 1;
@@ -64,7 +64,7 @@ int main() {
     }
 
     // 2. Create the Gaussian High-Pass Filter
-    create_highpass_filter(filter, height, width, 1.5f);
+    create_highpass_filter(filter, height, width, 50.0f);
 
     // 3. Apply the filter and perform Inverse FFT
 edge_detection(real, imag, twiddle_real, twiddle_imag, filter, height, width, 1.5f);
@@ -74,7 +74,7 @@ edge_detection(real, imag, twiddle_real, twiddle_imag, filter, height, width, 1.
         for (int j = 0; j < width; j++) {
             // After IFFT, real part contains the spatial image. 
             // We scale it up because edges on 8x8 can be very faint.
-            float val = real[i][j] * 255.0f * 10.0f; 
+            float val = real[i][j] * 255.0f; 
             if (val > 255.0f) val = 255.0f;
             if (val < 0.0f) val = 0.0f;
             output_data[i * width + j] = (unsigned char)val;
