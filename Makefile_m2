@@ -1,0 +1,25 @@
+# Makefile for Milestone 2 – RISC-V FFT
+#
+# Usage:
+#   make          → build
+#   make run      → build + run under QEMU
+#   make clean    → remove build artifacts
+
+CC      = riscv64-linux-gnu-gcc
+AS      = riscv64-linux-gnu-as
+QEMU    = qemu-riscv64
+
+CFLAGS  = -O0 -g -static
+TARGET  = fft_m2
+SRCS    = main.c fft.s
+
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	$(CC) $(CFLAGS) -o $@ $^ -lm
+
+run: $(TARGET)
+	$(QEMU) ./$(TARGET)
+
+clean:
+	rm -f $(TARGET) *.o

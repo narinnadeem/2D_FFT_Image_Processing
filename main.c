@@ -67,7 +67,7 @@ int main() {
     create_highpass_filter(filter, height, width, 50.0f);
 
     // 3. Apply the filter and perform Inverse FFT
-edge_detection(real, imag, twiddle_real, twiddle_imag, filter, height, width, 1.5f);
+edge_detection(real, imag, twiddle_real, twiddle_imag, filter, height, width, 30.0f);
 
     // 4. Save the Resulting Edges
     for (int i = 0; i < height; i++) {
